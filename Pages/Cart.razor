@@ -1,0 +1,158 @@
+@page "/cart"
+@using TrevioWepApp.Models
+@using TrevioWepApp.Services
+@inject StateContainer StateContainer
+
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-8">
+    <h2 class="text-3xl font-semibold mb-6 text-gray-800"><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h2>
+
+    @if (StateContainer.CartItems.Any())
+    {
+        <div class="space-y-4">
+            @foreach (var item in StateContainer.CartItems)
+            {
+                <div class="flex items-center justify-between bg-gray-100 p-4 rounded-lg shadow-md">
+                    <div class="flex items-center space-x-4">
+                        <img src="@item.ProductImageUrl" alt="@item.ProductName" class="w-16 h-16 object-cover rounded-md border">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">@item.ProductName</h3>
+                            <p class="text-gray-700"><i class="fas fa-tag"></i> Harga: <span class="font-medium">@item.Price.ToString("C0", new System.Globalization.CultureInfo("id-ID"))</span></p>
+                            <p class="text-gray-700"><i class="fas fa-box"></i> Jumlah: <span class="font-medium">@item.Quantity</span></p>
+                        </div>
+                    </div>
+                    <button class="px-3 py-2 text-white bg-red-500 hover:bg-red-600 rounded-md transition" @onclick="() => RemoveFromCart(item)">
+                        <i class="fas fa-trash"></i> Hapus
+                    </button>
+                </div>
+            }
+        </div>
+
+        @* City and Shipping Option *@
+        <div class="mt-6 bg-gray-50 p-4 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold"><i class="fas fa-map-marker-alt"></i> Pilih Kota Pengiriman</h3>
+            <select class="bg-white border px-4 py-2 rounded-md w-full shadow-sm" @bind="shippingAddress.City">
+                <option value="Jakarta">Jakarta</option>
+                <option value="Bandung">Bandung</option>
+                <option value="Surabaya">Surabaya</option>
+                <option value="Medan">Medan</option>
+                <option value="Yogyakarta">Yogyakarta</option>
+            </select>
+
+            <h3 class="text-lg font-semibold mt-4"><i class="fas fa-truck"></i> Pilih Ekspedisi</h3>
+            <select class="bg-white border px-4 py-2 rounded-md w-full shadow-sm" @bind="selectedExpedition">
+                <option value="jne">JNE</option>
+                <option value="tiki">TIKI</option>
+                <option value="pos">POS Indonesia</option>
+            </select>
+
+            <button class="w-full py-2 mt-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition" @onclick="CalculateShippingCost">
+                <i class="fas fa-calculator"></i> Hitung Ongkir
+            </button>
+
+            <p class="text-gray-700 mt-2">Harga Pengiriman: 
+                <span class="font-semibold">@shippingCost?.ToString("C0", new System.Globalization.CultureInfo("id-ID")) ?? "Pilih Ekspedisi dan Kota"</span>
+            </p>
+        </div>
+
+        <div class="mt-6 bg-gray-100 p-6 rounded-lg shadow-md">
+            <h3 class="text-lg font-semibold text-gray-900"><i class="fas fa-wallet"></i> Detail Pembayaran</h3>
+            <p class="text-gray-700">Total Harga Barang: 
+                <span class="font-semibold">@StateContainer.CartItems.Sum(item => item.Price * item.Quantity).ToString("C0", new System.Globalization.CultureInfo("id-ID"))</span>
+            </p>
+            <p class="text-gray-700">Total Pembayaran: 
+                <span class="font-semibold">
+                    @(shippingCost.HasValue ? (StateContainer.CartItems.Sum(item => item.Price * item.Quantity) + shippingCost.Value).ToString("C0", new System.Globalization.CultureInfo("id-ID")) : "-")
+                </span>
+            </p>
+
+            <h3 class="text-lg font-semibold mt-4"><i class="fas fa-money-bill-wave"></i> Masukkan Jumlah Pembayaran</h3>
+            <input type="number" class="bg-white border px-4 py-2 rounded-md w-full shadow-sm" @bind="paymentAmount" placeholder="Masukkan jumlah pembayaran" />
+
+          <button class="w-full py-2 mt-4 font-semibold rounded-md text-white transition-all duration-300" style="background-color: #16a34a;" @onclick="Checkout">
+                <i class="fas fa-credit-card"></i> Checkout
+            </button>
+
+            @if (paymentStatus != null)
+            {
+                <div class="mt-4 text-center">
+                    @if (paymentStatus == PaymentStatus.Success)
+                    {
+                        <p class="text-green-500 font-semibold"><i class="fas fa-check-circle"></i> Pembayaran berhasil! 🎉</p>
+                    }
+                    else if (paymentStatus == PaymentStatus.Failed)
+                    {
+                        <p class="text-red-500 font-semibold"><i class="fas fa-times-circle"></i> Pembayaran gagal! Silakan coba lagi.</p>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-gray-700 text-center"><i class="fas fa-shopping-basket"></i> Keranjang belanja Anda kosong. 🛍️</p>
+    }
+</div>
+
+@code {
+    private string selectedExpedition = "jne";
+    private ShippingAddress shippingAddress = new ShippingAddress { City = "Jakarta", Address = "" };
+    private decimal? shippingCost;
+    private decimal? paymentAmount;
+    private PaymentStatus? paymentStatus;
+
+    private List<ShippingCost> shippingCosts = new List<ShippingCost>
+    {
+        new ShippingCost { City = "Jakarta", JneCost = 10000, TikiCost = 12000, PosCost = 8000 },
+        new ShippingCost { City = "Bandung", JneCost = 9000, TikiCost = 11000, PosCost = 7500 },
+        new ShippingCost { City = "Surabaya", JneCost = 15000, TikiCost = 16000, PosCost = 13000 },
+        new ShippingCost { City = "Medan", JneCost = 20000, TikiCost = 21000, PosCost = 18000 },
+        new ShippingCost { City = "Yogyakarta", JneCost = 11000, TikiCost = 13000, PosCost = 10000 }
+    };
+
+    private void CalculateShippingCost()
+    {
+        var cityCost = shippingCosts.FirstOrDefault(sc => sc.City == shippingAddress.City);
+        if (cityCost != null)
+        {
+            shippingCost = selectedExpedition switch
+            {
+                "jne" => cityCost.JneCost,
+                "tiki" => cityCost.TikiCost,
+                "pos" => cityCost.PosCost,
+                _ => null
+            };
+        }
+    }
+
+        @* Checkput Logic *@
+    private void Checkout()
+    {
+        var totalHarga = StateContainer.CartItems.Sum(item => item.Price * item.Quantity);
+
+        if (shippingCost.HasValue)
+        {
+            var totalPayment = totalHarga + shippingCost.Value;
+
+            if (paymentAmount.HasValue && paymentAmount.Value >= totalPayment)
+            {
+                paymentStatus = PaymentStatus.Success;
+            }
+            else
+            {
+                paymentStatus = PaymentStatus.Failed;
+            }
+        }
+    }
+
+    private void RemoveFromCart(CartItem item)
+    {
+        var product = new Product(item.ProductId, item.ProductName, item.Price, item.ProductImageUrl, "");
+        StateContainer.RemoveFromCart(product);
+    }
+
+    public enum PaymentStatus
+    {
+        Success,
+        Failed
+    }
+}

@@ -1,0 +1,55 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+@using TrevioWepApp.Models
+
+<CascadingValue Value="CartItems">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 w-full bg-white text-gray-800 p-4 shadow-md z-[9999]">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-lg font-bold cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
+                @onclick="GoToHome">
+                TrevioWepApp
+            </div>
+
+            <!-- Menu -->
+            <div class="flex space-x-4">
+                <button @onclick="GoToHome"
+                    class="text-lg cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95">
+                    Home
+                </button>
+
+                <!-- Keranjang -->
+                <button @onclick="GoToCart"
+                    class="relative flex items-center cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95">
+                    <i class="fa fa-shopping-cart text-lg"></i>
+                    <span class="ml-2">Keranjang</span>
+                    @if (CartItems.Count > 0)
+                    {
+                        <span
+                            class="absolute top-0 right-0 text-white bg-red-500 text-xs rounded-full w-5 h-5 flex justify-center items-center -mt-2 -mr-2">
+                            @CartItems.Count
+                        </span>
+                    }
+                </button>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Konten Halaman -->
+    <main class="pt-20 container mx-auto px-4">
+        <div class="flex-grow">
+            @Body
+        </div>
+    </main>
+</CascadingValue>
+
+@code {
+    private List<Product> CartItems { get; set; } = new();
+
+    // Fungsi untuk menavigasi ke halaman utama (home)
+    private void GoToHome() => Navigation.NavigateTo("/");
+
+    private void GoToCart() => Navigation.NavigateTo("/cart");
+}

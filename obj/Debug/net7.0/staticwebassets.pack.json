@@ -1,0 +1,137 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/obj/Debug/net7.0/scopedcss/projectbundle/TrevioWepApp.bundle.scp.css",
+      "PackagePath": "staticwebassets/TrevioWepApp.bundle.scp.css"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/FONT-LICENSE",
+      "PackagePath": "staticwebassets/css/open-iconic"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/ICON-LICENSE",
+      "PackagePath": "staticwebassets/css/open-iconic"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/README.md",
+      "PackagePath": "staticwebassets/css/open-iconic/README.md"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/font/css/open-iconic-bootstrap.min.css",
+      "PackagePath": "staticwebassets/css/open-iconic/font/css/open-iconic-bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/font/fonts/open-iconic.eot",
+      "PackagePath": "staticwebassets/css/open-iconic/font/fonts/open-iconic.eot"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/font/fonts/open-iconic.otf",
+      "PackagePath": "staticwebassets/css/open-iconic/font/fonts/open-iconic.otf"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/font/fonts/open-iconic.svg",
+      "PackagePath": "staticwebassets/css/open-iconic/font/fonts/open-iconic.svg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/font/fonts/open-iconic.ttf",
+      "PackagePath": "staticwebassets/css/open-iconic/font/fonts/open-iconic.ttf"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/open-iconic/font/fonts/open-iconic.woff",
+      "PackagePath": "staticwebassets/css/open-iconic/font/fonts/open-iconic.woff"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/site.css",
+      "PackagePath": "staticwebassets/css/site.css"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/css/site.min.css",
+      "PackagePath": "staticwebassets/css/site.min.css"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/galaxy.avif",
+      "PackagePath": "staticwebassets/images/galaxy.avif"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/galaxy.jpg",
+      "PackagePath": "staticwebassets/images/galaxy.jpg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/headphone.avif",
+      "PackagePath": "staticwebassets/images/headphone.avif"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/headphone.jpg",
+      "PackagePath": "staticwebassets/images/headphone.jpg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/jaket.jpeg",
+      "PackagePath": "staticwebassets/images/jaket.jpeg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/kacamata.jpg",
+      "PackagePath": "staticwebassets/images/kacamata.jpg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/kemeja.jpg",
+      "PackagePath": "staticwebassets/images/kemeja.jpg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/macbook.jpg",
+      "PackagePath": "staticwebassets/images/macbook.jpg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/masker.jpeg",
+      "PackagePath": "staticwebassets/images/masker.jpeg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/protein.jpg",
+      "PackagePath": "staticwebassets/images/protein.jpg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/sanitizer.png",
+      "PackagePath": "staticwebassets/images/sanitizer.png"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/smartwatch.webp",
+      "PackagePath": "staticwebassets/images/smartwatch.webp"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/sneakers.jpg",
+      "PackagePath": "staticwebassets/images/sneakers.jpg"
+    },
+    {
+      "Id": "/Users/loupidd/Code/TrevioWepApp/wwwroot/images/vitamin.jpg",
+      "PackagePath": "staticwebassets/images/vitamin.jpg"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.TrevioWepApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.build.TrevioWepApp.props",
+      "PackagePath": "build\\TrevioWepApp.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.TrevioWepApp.props",
+      "PackagePath": "buildMultiTargeting\\TrevioWepApp.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.TrevioWepApp.props",
+      "PackagePath": "buildTransitive\\TrevioWepApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,135 @@
+﻿@page "/"
+@using TrevioWepApp.Models
+@using TrevioWepApp.Services
+@inject NavigationManager Navigation
+@inject StateContainer StateContainer
+
+@code {
+    private List<Product> Products { get; set; } = new()
+{
+// Kategori: Elektronik
+new Product(1, "16-inch MacBook Pro M4 Max", 59999000, "/images/macbook.jpg", "Elektronik"),
+new Product(2, "Galaxy S25 Ultra", 28999000, "/images/galaxy.jpg", "Elektronik"),
+new Product(3, "Garmin Quatix 7 Pro - Blue", 16999000, "/images/smartwatch.webp", "Elektronik"),
+new Product(4, "Shure SRH440A Professional Studio Headphones ", 999000, "/images/headphone.jpg", "Elektronik"),
+
+// Kategori: Fashion
+new Product(5, "REEBOK Club C Revenge Vintage", 1400000, "/images/sneakers.jpg", "Fashion"),
+new Product(6, "OCWA RON MILITARY LEATHER JACKET DARK BROWN ", 839000, "/images/jaket.jpeg", "Fashion"),
+new Product(7, "Erigo Short Shirt Pocket Daeio Olive", 131000, "/images/kemeja.jpg",
+"Fashion"),
+new Product(8, "EIGER WUTA WAYFARERS SUNGLASSES", 287100, "/images/kacamata.jpg", "Fashion"),
+
+// Kategori: Kesehatan
+new Product(9, "Hevit-C Vitamin C 1000 mg", 84000, "/images/vitamin.jpg", "Kesehatan"),
+new Product(10, "EvoWhey Evosorption Evolene -Whey Protein 50 Serving", 850000, "/images/protein.jpg", "Kesehatan"),
+new Product(11, "SENSI - Convex Mask 4 Ply", 75000, "/images/masker.jpeg", "Kesehatan"),
+new Product(12, "1963 Hand Sanitizer by Rumah Atsiri - 50 ml", 100000, "/images/sanitizer.png", "Kesehatan")
+};
+
+    private readonly List<(string Name, string Description)> ProductCategories = new()
+{
+("Elektronik", "Laptop, Smartphone, Smartwatch, Headphone"),
+("Fashion", "Sepatu, Baju, Jaket, Kacamata"),
+("Kesehatan", "Vitamin, Suplemen, Masker, Hand Sanitizer")
+};
+
+    private string SelectedCategory = "";
+    private List<Product> FilteredProducts => string.IsNullOrEmpty(SelectedCategory)
+    ? Products
+    : Products.Where(p => p.Category == SelectedCategory).ToList();
+
+    private Dictionary<int, int> ProductQuantities = new(); // Menyimpan jumlah unit per produk
+    private Dictionary<int, bool> ProductAddedStatus = new(); // Menyimpan status tombol "Beli"
+
+    private async Task AddToCart(Product product)
+    {
+        int quantity = ProductQuantities.ContainsKey(product.Id) ? ProductQuantities[product.Id] : 1;
+        for (int i = 0; i < quantity; i++)
+        {
+            StateContainer.AddToCart(product, quantity); //
+        }
+
+        ProductAddedStatus[product.Id] = true;
+        await Task.Delay(2000);
+        ProductAddedStatus[product.Id] = false;
+    }
+
+    private void FilterByCategory(string category)
+    {
+        SelectedCategory = category;
+    }
+
+    private string SortBy = "Default";
+    private void SortProducts(ChangeEventArgs e)
+    {
+        SortBy = e.Value?.ToString() ?? "Default";
+
+        switch (SortBy)
+        {
+            case "price-low-to-high":
+                Products = Products.OrderBy(p => p.Price).ToList();
+                break;
+            case "price-high-to-low":
+                Products = Products.OrderByDescending(p => p.Price).ToList();
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+<div class="container mx-auto py-10 text-center">
+    <div class=" text-white py-3 rounded-lg mb-8" style="background-color: rgb(19, 164, 19);">
+        <h2 class="text-xl font-semibold">Flash Sale! Diskon hingga 50% hanya hari ini!</h2>
+        <p><i>*Syarat & Ketentuan berlaku</i></p>
+    </div>
+
+    <h2 class="text-3xl font-semibold text-blue-600 mt-8">Kategori Produk</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">
+        @foreach (var category in ProductCategories)
+        {
+            <div class="category-item bg-gray-200 p-4 rounded-lg text-center cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-110 hover:bg-blue-100"
+                @onclick="() => FilterByCategory(category.Name)">
+                <h3 class="text-xl font-bold text-blue-500">@category.Name</h3>
+                <p class="text-gray-700">@category.Description</p>
+            </div>
+        }
+    </div>
+
+    <div class="container flex justify-end mt-4">
+        <select class="bg-white border border-gray-300 px-4 py-2 rounded-lg" @onchange="SortProducts">
+            <option value="newest">Newest</option>
+            <option value="price-low-to-high">Price: Low to High</option>
+            <option value="price-high-to-low">Price: High to Low</option>
+        </select>
+    </div>
+
+    <h2 class="text-3xl font-semibold mt-8">Etalase Produk</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 mt-6">
+        @foreach (var product in FilteredProducts)
+        {
+            <div
+                class="product-item bg-white shadow-lg p-4 rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105">
+                <img src="@product.ImageUrl" alt="@product.Name" class="w-full h-40 object-cover rounded-md">
+                <h3 class="text-lg font-semibold mt-2">@product.Name</h3>
+                <p class="text-gray-700">@product.Price.ToString("C0", new System.Globalization.CultureInfo("id-ID"))</p>
+
+                <div class="flex items-center justify-between mt-2">
+                    <label class="text-sm text-gray-600">Jumlah:</label>
+                    <input type="number" min="1"
+                        value="@(ProductQuantities.ContainsKey(product.Id) ? ProductQuantities[product.Id] : 1)"
+                        class="w-16 border border-gray-300 rounded px-2"
+                        @oninput="(e) => ProductQuantities[product.Id] = int.TryParse(e.Value?.ToString(), out var result) ? result : 1">
+                </div>
+
+                <button class="px-4 py-2 rounded mt-3 w-full text-white transition-all duration-300 ease-in-out"
+                    style="background-color: @(ProductAddedStatus.ContainsKey(product.Id) && ProductAddedStatus[product.Id] ? "#ccc" : "#07AB4F")"
+                    @onclick="() => AddToCart(product)">
+                    @(ProductAddedStatus.ContainsKey(product.Id) && ProductAddedStatus[product.Id] ? "Ditambahkan!" :
+                                    "Beli")
+            </button>
+        </div>
+                }
+    </div>
+</div>

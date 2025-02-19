@@ -1,0 +1,78 @@
+/* Navbar - Fixed di atas */
+.top-navbar[b-eks1g2qeih] {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    /* Navbar dengan latar belakang lebih gelap */
+    padding: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Menambahkan margin-top pada konten utama untuk menghindari overlap */
+.main-content[b-eks1g2qeih] {
+    margin-top: 60px;
+    /* Sesuaikan dengan tinggi navbar */
+}
+
+/* Styling untuk kategori */
+.category-header[b-eks1g2qeih] {
+    font-size: 24px;
+    /* Membuat ukuran header kategori lebih besar */
+    color: #3b82f6;
+    /* Memberikan warna biru pada header */
+    cursor: pointer;
+    /* Menambahkan cursor pointer */
+    font-weight: bold;
+    transition: color 0.3s ease;
+    /* Animasi transisi warna */
+}
+
+.category-header:hover[b-eks1g2qeih] {
+    color: #1e40af;
+    /* Mengubah warna saat hover */
+}
+
+/* Navbar responsif */
+@media (max-width: 768px) {
+    nav[b-eks1g2qeih] {
+        padding: 1rem;
+        /* Menyesuaikan padding navbar untuk perangkat kecil */
+    }
+
+    .container[b-eks1g2qeih] {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-eks1g2qeih] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-eks1g2qeih] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-eks1g2qeih] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row[b-eks1g2qeih],
+    article[b-eks1g2qeih] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
+button:hover[b-eks1g2qeih] {
+    background-color: transparent !important;
+}

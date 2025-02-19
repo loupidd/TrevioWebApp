@@ -31,3 +31,4 @@
 /Users/loupidd/Code/TrevioWepApp/obj/Debug/net7.0/TrevioWepApp.pdb
 /Users/loupidd/Code/TrevioWepApp/obj/Debug/net7.0/TrevioWepApp.genruntimeconfig.cache
 /Users/loupidd/Code/TrevioWepApp/obj/Debug/net7.0/ref/TrevioWepApp.dll
+/Users/loupidd/Code/TrevioWepApp/obj/Debug/net7.0/TrevioWepApp.sourcelink.json

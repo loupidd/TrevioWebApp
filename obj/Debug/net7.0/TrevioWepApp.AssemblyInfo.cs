@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrevioWepApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cf9bbf1552ed040b759bd1f260b535724dd62de1")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrevioWepApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrevioWepApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
